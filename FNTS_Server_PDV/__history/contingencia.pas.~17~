@@ -223,28 +223,7 @@ begin
             ACBRNFCe.NotasFiscais.Clear;
             TBlobField(qrTemp.FieldByName('XMLENVIO')).SaveToStream(teste);
             ACBRNFCe.NotasFiscais.LoadFromStream(teste);
-            try
             ACBRNFCe.Enviar(ACBRNFCe.NotasFiscais.Items[0].NFe.Ide.nNF, False, True);
-            except
-             on E:Exception do begin
-
-
-             end;
-
-            end;
-
-            ShowMessage(ACBRNFCe.WebServices.Enviar.cStat);
-
-            if ACBRNFCe.WebServices.Enviar.cStat = 539 then begin
-                qrTemp.Edit;
-                qrTemp.FieldByName('ENVIADOCONTINGENCIA').AsString := 'S';
-                qrTemp.FieldByName('EX').AsInteger := 0;
-                qrTemp.FieldByName('ALTERADO').AsString := 'S';
-                qrTemp.Post;
-
-            end;
-
-
             if ACBRNFCe.NotasFiscais.Items[0].Confirmada then begin
               if ACBRNFCe.WebServices.Enviar.cStat = 100 then begin
                 qrTemp.Edit;
@@ -254,8 +233,6 @@ begin
                 qrTemp.Post;
 //                qrTemp.ApplyUpdates;
               end;
-
-
             end
 
           end;

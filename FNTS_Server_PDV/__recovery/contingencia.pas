@@ -108,7 +108,7 @@ begin
 
                 if cbResolvido.Text = 'Sim' then
                 qrPDV_Contingencia.SQL.Add('and ENVIADOCONTINGENCIA ='  + QuotedStr('S'))
-                else if cbResolvido.Text = 'N„o' then
+                else if cbResolvido.Text = 'N√£o' then
                 qrPDV_Contingencia.SQL.Add('and ENVIADOCONTINGENCIA ='  + QuotedStr('N'));
 
 
@@ -142,7 +142,7 @@ begin
 
                 if cbResolvido.Text = 'Sim' then
                 qrPDV_Contingencia.SQL.Add('and ENVIADOCONTINGENCIA ='  + QuotedStr('S'))
-                else if cbResolvido.Text = 'N„o' then
+                else if cbResolvido.Text = 'N√£o' then
                 qrPDV_Contingencia.SQL.Add('and ENVIADOCONTINGENCIA ='  + QuotedStr('N'));
 
 
@@ -179,7 +179,7 @@ begin
 
                 if cbResolvido.Text = 'Sim' then
                 qrPDV_Contingencia.SQL.Add('and ENVIADOCONTINGENCIA ='  + QuotedStr('S'))
-                else if cbResolvido.Text = 'N„o' then
+                else if cbResolvido.Text = 'N√£o' then
                 qrPDV_Contingencia.SQL.Add('and ENVIADOCONTINGENCIA ='  + QuotedStr('N'));
 
 
@@ -226,16 +226,18 @@ begin
             try
             ACBRNFCe.Enviar(ACBRNFCe.NotasFiscais.Items[0].NFe.Ide.nNF, False, True);
             except
+
              on E:Exception do begin
-
-
              end;
+
+
+
 
             end;
 
-            ShowMessage(ACBRNFCe.WebServices.Enviar.cStat);
 
-            if ACBRNFCe.WebServices.Enviar.cStat = 539 then begin
+
+            if ACBRNFCe.WebServices.Enviar.cStat = 204 then begin
                 qrTemp.Edit;
                 qrTemp.FieldByName('ENVIADOCONTINGENCIA').AsString := 'S';
                 qrTemp.FieldByName('EX').AsInteger := 0;
@@ -262,7 +264,7 @@ begin
           qrTemp.Next;
 end;
 
-Application.MessageBox('Processo concluÌdo com sucesso.', 'Envio', MB_OK);
+Application.MessageBox('Processo conclu√≠do com sucesso.', 'Envio', MB_OK);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -354,7 +356,7 @@ try
       ProxyUser := arquivo_ini.ReadString('Proxy', 'User', '');
       ProxyPass := arquivo_ini.ReadString('Proxy', 'Pass', '');
     end;
-    MotivoContigencia := arquivo_ini.ReadString('WebService','MotivoContingencia','Sem conex„o com a Internet.');
+    MotivoContigencia := arquivo_ini.ReadString('WebService','MotivoContingencia','Sem conex√£o com a Internet.');
     ACBRNFCe.SSL.SSLType := TSSLType(arquivo_ini.ReadInteger('WebService', 'SSLType', 0));
 
     with ACBRNFCe.Configuracoes.Arquivos do begin

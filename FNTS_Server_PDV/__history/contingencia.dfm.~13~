@@ -131,6 +131,8 @@ object Form1: TForm1
     TabOrder = 0
     TabStyle = tsWhidbey
     TopIndent = 3
+    ExplicitWidth = 962
+    ExplicitHeight = 177
     object PageSheet1: TPageSheet
       Left = 0
       Top = 0
@@ -146,6 +148,8 @@ object Form1: TForm1
       TabColor = clWindow
       TabWidth = 0
       TransparentColor = clNone
+      ExplicitWidth = 962
+      ExplicitHeight = 177
       object Label1: TLabel
         Left = 19
         Top = 39
@@ -679,6 +683,8 @@ object Form1: TForm1
       TabColor = clWindow
       TabWidth = 0
       TransparentColor = clNone
+      ExplicitWidth = 962
+      ExplicitHeight = 177
       object Memo1: TMemo
         Left = 0
         Top = 0
@@ -694,6 +700,8 @@ object Form1: TForm1
         ParentFont = False
         ScrollBars = ssVertical
         TabOrder = 0
+        ExplicitWidth = 962
+        ExplicitHeight = 177
       end
     end
   end
@@ -730,11 +738,6 @@ object Form1: TForm1
     TabOrder = 3
     TabStop = True
     object NxDBTextColumn1: TNxDBTextColumn
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
       Header.Caption = 'Data'
       Header.Font.Charset = DEFAULT_CHARSET
       Header.Font.Color = clWindowText
@@ -742,17 +745,11 @@ object Form1: TForm1
       Header.Font.Name = 'Tahoma'
       Header.Font.Style = []
       Options = [coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
-      ParentFont = False
       Position = 0
       SortType = stAlphabetic
       FieldName = 'DATA'
     end
     object NxDBTextColumn2: TNxDBTextColumn
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
       Header.Caption = 'Numero'
       Header.Font.Charset = DEFAULT_CHARSET
       Header.Font.Color = clWindowText
@@ -760,17 +757,11 @@ object Form1: TForm1
       Header.Font.Name = 'Tahoma'
       Header.Font.Style = []
       Options = [coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
-      ParentFont = False
       Position = 1
       SortType = stAlphabetic
       FieldName = 'NUMERO'
     end
     object NxDBTextColumn3: TNxDBTextColumn
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
       Header.Caption = 'PDV'
       Header.Font.Charset = DEFAULT_CHARSET
       Header.Font.Color = clWindowText
@@ -778,17 +769,11 @@ object Form1: TForm1
       Header.Font.Name = 'Tahoma'
       Header.Font.Style = []
       Options = [coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
-      ParentFont = False
       Position = 2
       SortType = stAlphabetic
       FieldName = 'PDV'
     end
     object NxDBTextColumn4: TNxDBTextColumn
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
       Header.Caption = 'Situa'#231#227'o'
       Header.Font.Charset = DEFAULT_CHARSET
       Header.Font.Color = clWindowText
@@ -796,17 +781,11 @@ object Form1: TForm1
       Header.Font.Name = 'Tahoma'
       Header.Font.Style = []
       Options = [coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
-      ParentFont = False
       Position = 3
       SortType = stAlphabetic
       FieldName = 'DES_SIT'
     end
     object NxDBTextColumn5: TNxDBTextColumn
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
       Header.Caption = 'Total'
       Header.Font.Charset = DEFAULT_CHARSET
       Header.Font.Color = clWindowText
@@ -814,18 +793,12 @@ object Form1: TForm1
       Header.Font.Name = 'Tahoma'
       Header.Font.Style = []
       Options = [coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
-      ParentFont = False
       Position = 4
       SortType = stAlphabetic
       FieldName = 'TOTAL'
     end
     object NxDBTextColumn6: TNxDBTextColumn
       DefaultWidth = 300
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
       Header.Caption = 'Chave'
       Header.Font.Charset = DEFAULT_CHARSET
       Header.Font.Color = clWindowText
@@ -833,18 +806,12 @@ object Form1: TForm1
       Header.Font.Name = 'Tahoma'
       Header.Font.Style = []
       Options = [coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
-      ParentFont = False
       Position = 5
       SortType = stAlphabetic
       Width = 300
       FieldName = 'CHAVE'
     end
     object NxDBTextColumn7: TNxDBTextColumn
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
       Header.Caption = 'Conting'#234'ncia?'
       Header.Font.Charset = DEFAULT_CHARSET
       Header.Font.Color = clWindowText
@@ -852,17 +819,11 @@ object Form1: TForm1
       Header.Font.Name = 'Tahoma'
       Header.Font.Style = []
       Options = [coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
-      ParentFont = False
       Position = 6
       SortType = stAlphabetic
       FieldName = 'CONTINGENCIA'
     end
     object NxDBTextColumn8: TNxDBTextColumn
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
       Header.Caption = 'Resolvido?'
       Header.Font.Charset = DEFAULT_CHARSET
       Header.Font.Color = clWindowText
@@ -870,25 +831,18 @@ object Form1: TForm1
       Header.Font.Name = 'Tahoma'
       Header.Font.Style = []
       Options = [coCanClick, coCanInput, coCanSort, coEditing, coPublicUsing, coShowTextFitHint]
-      ParentFont = False
       Position = 7
       SortType = stAlphabetic
       FieldName = 'ENVIADOCONTINGENCIA'
     end
     object NxDBCheckBoxColumn1: TNxDBCheckBoxColumn
       DefaultValue = 'True'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
       Header.Caption = 'Enviar?'
       Header.Font.Charset = DEFAULT_CHARSET
       Header.Font.Color = clWindowText
       Header.Font.Height = -11
       Header.Font.Name = 'Tahoma'
       Header.Font.Style = []
-      ParentFont = False
       Position = 8
       SortType = stBoolean
       FieldName = 'ENVIAR'

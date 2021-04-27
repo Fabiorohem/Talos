@@ -3,7 +3,7 @@ unit principal;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Winapi.Windows, Winapi.Messages,Winapi.TlHelp32, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, MidasLib,
   JvBaseDlg, JvSelectDirectory, ACBrValidador, ACBrBase, ACBrDFe, ACBrNFe,
   System.Actions, Vcl.ActnList, Data.DB, MemDS, DBAccess, Uni, TFlatHintUnit,
@@ -127,7 +127,7 @@ var
   TipoDeCupom: TTipoCupom;
   ExibeTecladoVirtual, AtivaTouch: Boolean;
 
-  // configurações
+  // configuraÃ§Ãµes
 
   sModelo: string;
   bHabGuilhotina: Boolean;
@@ -190,7 +190,7 @@ var
   sPAF_MD5: string;
   (* Classificar o tipo de venda do sistema*)
   iTipo_Venda: integer; // 1 Super 2 Prevenda 3 Posto
-  (* Configuraçoes do Banco de Dados *)
+  (* ConfiguraÃ§oes do Banco de Dados *)
   iTamanho_codigo_balanca: integer; // tamanho do codigo da balaca 4 ou 5
   bMuda_qtde: boolean; // configuracao para permitir a edicao da qtde
   bMuda_total, bMudouProvisorio, bMuda_unitario, bMensagem_Cupom,
@@ -246,7 +246,7 @@ var
 
   (* Outras*)
   bContinua: boolean; // Continuar ou nao um procedimento/funcao
-  bSair_campo: boolean; // forçar a edicao do campo
+  bSair_campo: boolean; // forÃ§ar a edicao do campo
   bSupervisor_autenticado: boolean; // verifiar se o supervisor foi logado
 
   (* Usuario e Senha *)
@@ -254,7 +254,7 @@ var
   busuario_autenticado: boolean; // verificar se o usuario foi autenticado
   icodigo_Usuario: integer; // codigo do usuario logado
   sNome_Operador: string; // nome do operador
-  iNumCaixa: integer; // Identificação do caixa
+  iNumCaixa: integer; // IdentificaÃ§Ã£o do caixa
   iCFOP: string; // cfop de venda paf
   bFechamentoCego:Boolean;
 
@@ -321,13 +321,13 @@ var
   rDesconto_maximo, racrescimo_maximo: real;
 
   // Verificar se vai pedir para identificar o vendedor no fechamento
-  // da venda ou não
+  // da venda ou nÃ£o
   bIdentificarVendedor: Integer;
   sCodigoSegurancaFicha, sImpressora_Venda_Simples, sImpressora_Cozinha, sImpressora_Ficha: string;
   bAtivaImpFicha,bImpressaoCozinha, bExibeCumponNFTela: Boolean;
-  //  Identifica qual o campo será mostrado na coluna onde ´tem o código
+  //  Identifica qual o campo serÃ¡ mostrado na coluna onde Â´tem o cÃ³digo
   // de barras na consulta do produto
-  // 0 - Código de Barras, 1 - Referência, 2 - Referência+Tamanho+Cor
+  // 0 - CÃ³digo de Barras, 1 - ReferÃªncia, 2 - ReferÃªncia+Tamanho+Cor
   iColunaCOnsultaProdutos: Integer;
   sPortaGaveta: string; // Porta de Impressora e gaveta nao Fiscal
   iModeloGaveta:Integer;
@@ -366,7 +366,7 @@ begin
     end;
   end
   else begin
-    Showmessage('Não foi possível concluir com a operação!' + #13 + 'Erro: Código de sequência não encontrado na tabela de códigos.');
+    Showmessage('NÃ£o foi possÃ­vel concluir com a operaÃ§Ã£o!' + #13 + 'Erro: CÃ³digo de sequÃªncia nÃ£o encontrado na tabela de cÃ³digos.');
   end;
 end;
 
@@ -420,7 +420,16 @@ end;
 // -------------------------------------------------------------------------- //
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
+var
+  hMutex : integer;
 begin
+
+   hMutex := CreateMutex(0, TRUE, 'Pdv');
+    if GetLastError = ERROR_ALREADY_EXISTS then begin
+    beep;
+    ShowMessage('JÃ¡ existe PDV em execuÃ§Ã£o. Verifique a sua barra de tarefas!');
+    Application.Terminate;
+    end;
 
   iImpressora := 1;
   iGaveta := StrToInt(frmPrincipal.LerINi(ExtractFilePath(Application.ExeName) + 'CFG\cfg.ini', 'GAVETA', 'LOCAL', '0'));
@@ -499,7 +508,7 @@ begin
       iBal_time := StrToInt(LerIni(ExtractFilePath(Application.ExeName) + 'CFG\cfg.ini', 'BALANCA', 'Timeout', '1000'));
     end;
   except
-    Application.MessageBox('As Configurações da balança são inválidas, verifique!', 'Atenção!', MB_ICONINFORMATION);
+    Application.MessageBox('As ConfiguraÃ§Ãµes da balanÃ§a sÃ£o invÃ¡lidas, verifique!', 'AtenÃ§Ã£o!', MB_ICONINFORMATION);
   end;
 
   sECF_Porta := LerINi(ExtractFilePath(Application.ExeName) + 'CFG\cfg.ini', 'ECF', 'Porta', '');
@@ -511,7 +520,7 @@ begin
   ExibeTecladoVirtual := LerINi(ExtractFilePath(Application.ExeName) + 'CFG\cfg.ini', 'Geral', 'UTILIZA TECLADO', '0') = '1';
 
   bHabGuilhotina := StrToBool(LerIni(ExtractFilePath(Application.ExeName) + 'CFG\cfg.ini', 'GUILHOTINA', 'HABILITA', BoolToStr(False)));
-  sModelo := LerIni(ExtractFilePath(Application.ExeName) + 'CFG\cfg.ini', 'GUILHOTINA', 'MODELO', 'PADRÃO');
+  sModelo := LerIni(ExtractFilePath(Application.ExeName) + 'CFG\cfg.ini', 'GUILHOTINA', 'MODELO', 'PADRÃƒO');
 
   Arquivo_ini := TIniFile.Create('.\cfg\Paf.ini');
 
@@ -876,7 +885,7 @@ begin
   iNumCaixa := icodigo_Usuario;
   iCFOP := (LerIni(sConfiguracoes, 'Emitente', 'CFOP', ''));
   if iNumCaixa = 0 then begin
-    Application.MessageBox('Número do caixa nao definido, favor verificar', 'Mensagem');
+    Application.MessageBox('NÃºmero do caixa nao definido, favor verificar', 'Mensagem');
     exit;
   end;
 
@@ -891,7 +900,7 @@ begin
         bcaixa_aberto := True;
         if (frmmodulo.query.fieldbyname('caixa_situacao').asstring = 'ABERTO') and
           (frmmodulo.query.fieldbyname('caixa_data_movto').AsDateTime <> Date) then begin
-          if Application.MessageBox('Não foi realizado o Fechamento deste caixa ainda, impossível acessar a tela de vendas.'+#13+'Deseja Efetuar o Fechamento do Mesmo?','Atenção!',MB_ICONINFORMATION+MB_YESNO) = mrYes then begin
+          if Application.MessageBox('NÃ£o foi realizado o Fechamento deste caixa ainda, impossÃ­vel acessar a tela de vendas.'+#13+'Deseja Efetuar o Fechamento do Mesmo?','AtenÃ§Ã£o!',MB_ICONINFORMATION+MB_YESNO) = mrYes then begin
 
             frmSenha_Supervisor := TfrmSenha_Supervisor.create(Self);
             frmSenha_Supervisor.FechaCaixa := True;
@@ -915,7 +924,7 @@ begin
             bcaixa_aberto := True;
             if (frmmodulo.query.fieldbyname('caixa_situacao').asstring = 'ABERTO') and
               (frmmodulo.query.fieldbyname('caixa_data_movto').AsDateTime <> Date) then begin
-              Application.MessageBox('Não foi identificado o fechamento do caixa atual, impossível acessar a tela de vendas.','Atenção!',MB_ICONINFORMATION+MB_YESNO);
+              Application.MessageBox('NÃ£o foi identificado o fechamento do caixa atual, impossÃ­vel acessar a tela de vendas.','AtenÃ§Ã£o!',MB_ICONINFORMATION+MB_YESNO);
               Exit;
             end;
 
@@ -939,15 +948,15 @@ begin
           query_servidor.SQL.Add('select * from c000045 where codigo = '+QuotedStr('000099'));
           query_servidor.Open;
           if query_servidor.IsEmpty then begin
-            Application.MessageBox('Não foi identificado o Caixa Geral "99" no Gerencial, impossivel realizar vendas!','Atenção!',MB_ICONINFORMATION);
+            Application.MessageBox('NÃ£o foi identificado o Caixa Geral "99" no Gerencial, impossivel realizar vendas!','AtenÃ§Ã£o!',MB_ICONINFORMATION);
             Exit;
           end;
           if query_servidor.FieldByName('DATA').AsDateTime <> dData_Sistema then begin
-            Application.MessageBox('Não foi aberto um novo Caixa Geral "99" no Gerencial, impossivel realizar vendas!','Atenção!',MB_ICONINFORMATION);
+            Application.MessageBox('NÃ£o foi aberto um novo Caixa Geral "99" no Gerencial, impossivel realizar vendas!','AtenÃ§Ã£o!',MB_ICONINFORMATION);
             Exit;
           end;
           if query_servidor.FieldByName('SITUACAO').AsInteger <> 1 then begin
-            Application.MessageBox('O Caixa Geral "99" no Gerencial não esta aberto, impossivel realizar vendas!','Atenção!',MB_ICONINFORMATION);
+            Application.MessageBox('O Caixa Geral "99" no Gerencial nÃ£o esta aberto, impossivel realizar vendas!','AtenÃ§Ã£o!',MB_ICONINFORMATION);
             Exit;
           end;
         end;
@@ -960,7 +969,7 @@ begin
           bAtiva_Venda := true;
         end
         else begin
-          Application.MessageBox(pwidechar('As funções de venda serão bloqueadas!'), 'Atenção', mb_ok + MB_ICONWARNING);
+          Application.MessageBox(pwidechar('As funÃ§Ãµes de venda serÃ£o bloqueadas!'), 'AtenÃ§Ã£o', mb_ok + MB_ICONWARNING);
           bAtiva_Venda := false;
         end;
 
@@ -980,7 +989,7 @@ begin
         frmModulo.spCupom_Temp_delete.prepare;
         frmModulo.spCupom_Temp_delete.execute;
         if not bCaixa_aberto then begin
-          Application.messagebox(PWideChar('As funções de venda serão bloqueadas!'), 'Atenção', MB_OK + MB_ICONWARNING);
+          Application.messagebox(PWideChar('As funÃ§Ãµes de venda serÃ£o bloqueadas!'), 'AtenÃ§Ã£o', MB_OK + MB_ICONWARNING);
           Exit;
         end;
       end;

@@ -106,7 +106,6 @@ type
     function ApenasNumerosStr(pStr: string): string;
     function IsInteger(s: string): integer;
     function codifica(Tabela: string; qtde_digitos: integer): string;
-    function ProcessExists(exeFileName: string): boolean;
   end;
 
 const
@@ -368,29 +367,6 @@ begin
   else begin
     Showmessage('Não foi possível concluir com a operação!' + #13 + 'Erro: Código de sequência não encontrado na tabela de códigos.');
   end;
-end;
-
-function TfrmPrincipal.ProcessExists(exeFileName: string): Boolean;
-var
- ContinueLoop: BOOL;
- FSnapshotHandle: THandle;
- FProcessEntry32: TProcessEntry32;
-begin
- FSnapshotHandle := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
- FProcessEntry32.dwSize := SizeOf(FProcessEntry32);
- ContinueLoop := Process32First(FSnapshotHandle, FProcessEntry32);
- Result := False;
- while Integer(ContinueLoop) <> 0 do
- begin
-    if ((UpperCase(ExtractFileName(FProcessEntry32.szExeFile)) =
-     UpperCase(ExeFileName)) or (UpperCase(FProcessEntry32.szExeFile) =
-     UpperCase(ExeFileName))) then
-   begin
-     Result := True;
-   end;
-   ContinueLoop := Process32Next(FSnapshotHandle, FProcessEntry32);
- end;
- CloseHandle(FSnapshotHandle);
 end;
 
 procedure TfrmPrincipal.configuracoesExecute(Sender: TObject);
